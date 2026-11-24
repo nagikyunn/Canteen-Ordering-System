@@ -1,0 +1,7 @@
+﻿demo/target/
+target/
+.vscode/
+.idea/
+*.class
+menu.txt
+orders.txt
