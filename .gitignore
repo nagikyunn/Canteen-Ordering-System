@@ -5,3 +5,5 @@ target/
 *.class
 menu.txt
 orders.txt
+
+canteen.db

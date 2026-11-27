@@ -2,9 +2,12 @@ package canteen_project.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,7 +38,7 @@ public class CustomerView extends JFrame {
 
     public CustomerView() {
         setTitle("Customer Menu - Canteen Ordering System");
-        setSize(760, 500);
+        setSize(820, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
@@ -46,15 +49,17 @@ public class CustomerView extends JFrame {
         JLabel headerLabel = new JLabel("Canteen Menu & Ordering");
         headerLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         headerLabel.setBorder(BorderFactory.createEmptyBorder(15, 15, 10, 15));
+        headerLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         topPanel.add(headerLabel);
 
         JSeparator divider = new JSeparator(SwingConstants.HORIZONTAL);
         divider.setForeground(Color.GRAY);
+        divider.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
         topPanel.add(divider);
 
         add(topPanel, BorderLayout.NORTH);
 
-        JPanel centerPanel = new JPanel(new GridLayout(1, 2, 12, 10));
+        JPanel centerPanel = new JPanel(new GridLayout(1, 2, 14, 10));
         centerPanel.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
         JPanel leftPanel = new JPanel(new BorderLayout(5, 5));
@@ -68,6 +73,11 @@ public class CustomerView extends JFrame {
             }
         };
         menuTable = new JTable(menuModel);
+        menuTable.setRowHeight(22);
+        menuTable.getColumnModel().getColumn(0).setPreferredWidth(35);
+        menuTable.getColumnModel().getColumn(1).setPreferredWidth(185);
+        menuTable.getColumnModel().getColumn(2).setPreferredWidth(70);
+        menuTable.getColumnModel().getColumn(3).setPreferredWidth(80);
         leftPanel.add(new JScrollPane(menuTable), BorderLayout.CENTER);
 
         JPanel addCartPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -89,6 +99,10 @@ public class CustomerView extends JFrame {
             }
         };
         cartTable = new JTable(cartModel);
+        cartTable.setRowHeight(22);
+        cartTable.getColumnModel().getColumn(0).setPreferredWidth(185);
+        cartTable.getColumnModel().getColumn(1).setPreferredWidth(45);
+        cartTable.getColumnModel().getColumn(2).setPreferredWidth(95);
         rightPanel.add(new JScrollPane(cartTable), BorderLayout.CENTER);
 
         JPanel cartControlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

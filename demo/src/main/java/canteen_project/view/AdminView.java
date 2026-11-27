@@ -3,8 +3,11 @@ package canteen_project.view;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -46,7 +49,7 @@ public class AdminView extends JFrame {
 
     public AdminView() {
         setTitle("Admin Dashboard - Canteen Ordering System");
-        setSize(740, 480);
+        setSize(820, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
@@ -54,17 +57,20 @@ public class AdminView extends JFrame {
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
 
-        headerLabel = new JLabel("Admin Dashboard");
+        headerLabel = new JLabel("Admin Dashboard - View Orders");
         headerLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         headerLabel.setBorder(BorderFactory.createEmptyBorder(15, 15, 10, 15));
+        headerLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         topPanel.add(headerLabel);
 
         JSeparator divider = new JSeparator(SwingConstants.HORIZONTAL);
         divider.setForeground(Color.GRAY);
+        divider.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
         topPanel.add(divider);
 
         JPanel navPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 8));
         navPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 0, 10));
+        navPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         viewOrdersBtn = new JButton("View Orders");
         manageMenuBtn = new JButton("Manage Menu Items");
@@ -99,6 +105,12 @@ public class AdminView extends JFrame {
         };
 
         ordersTable = new JTable(ordersModel);
+        ordersTable.setRowHeight(22);
+        ordersTable.getColumnModel().getColumn(0).setPreferredWidth(80);
+        ordersTable.getColumnModel().getColumn(1).setPreferredWidth(260);
+        ordersTable.getColumnModel().getColumn(2).setPreferredWidth(70);
+        ordersTable.getColumnModel().getColumn(3).setPreferredWidth(110);
+        ordersTable.getColumnModel().getColumn(4).setPreferredWidth(100);
         panel.add(new JScrollPane(ordersTable), BorderLayout.CENTER);
 
         JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -128,12 +140,18 @@ public class AdminView extends JFrame {
         };
 
         menuTable = new JTable(menuModel);
+        menuTable.setRowHeight(22);
+        menuTable.getColumnModel().getColumn(0).setPreferredWidth(45);
+        menuTable.getColumnModel().getColumn(1).setPreferredWidth(240);
+        menuTable.getColumnModel().getColumn(2).setPreferredWidth(90);
+        menuTable.getColumnModel().getColumn(3).setPreferredWidth(95);
+        menuTable.getColumnModel().getColumn(4).setPreferredWidth(80);
         panel.add(new JScrollPane(menuTable), BorderLayout.CENTER);
 
         JPanel bottomControls = new JPanel(new BorderLayout(5, 5));
 
         JPanel addPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        nameField = new JTextField(14);
+        nameField = new JTextField(15);
         categoryBox = new JComboBox<>(new String[]{"Meals", "Snacks", "Drinks"});
         priceField = new JTextField(6);
         addBtn = new JButton("Add Item");
@@ -162,6 +180,11 @@ public class AdminView extends JFrame {
 
     public void showCard(String cardName) {
         cardLayout.show(contentPanel, cardName);
+        if ("ORDERS".equals(cardName)) {
+            headerLabel.setText("Admin Dashboard - View Orders");
+        } else if ("MENU".equals(cardName)) {
+            headerLabel.setText("Admin Dashboard - Manage Menu Items");
+        }
     }
 
     public JButton getViewOrdersButton() {

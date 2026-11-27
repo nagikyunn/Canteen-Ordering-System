@@ -1,6 +1,7 @@
 package canteen_project.controller;
 
 import javax.swing.JOptionPane;
+
 import canteen_project.model.CanteenStaff;
 import canteen_project.model.CanteenStorage;
 import canteen_project.model.MenuItem;
@@ -18,6 +19,7 @@ public class AdminController {
 
         refreshOrdersTable();
         refreshMenuTable();
+        view.showCard("ORDERS");
         initListeners();
     }
 
