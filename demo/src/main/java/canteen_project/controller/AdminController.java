@@ -40,6 +40,7 @@ public class AdminController {
         view.getPendingButton().addActionListener(e -> updateSelectedOrderStatus("Pending"));
         view.getPreparingButton().addActionListener(e -> updateSelectedOrderStatus("Preparing"));
         view.getReadyButton().addActionListener(e -> updateSelectedOrderStatus("Ready"));
+        view.getCompletedButton().addActionListener(e -> updateSelectedOrderStatus("Completed"));
 
         view.getAddButton().addActionListener(e -> addMenuItem());
         view.getToggleButton().addActionListener(e -> toggleAvailability());
@@ -78,7 +79,20 @@ public class AdminController {
             JOptionPane.showMessageDialog(view, "Select an order first.");
             return;
         }
+
         String orderId = (String) view.getOrdersModel().getValueAt(selectedRow, 0);
+        String currentStatus = (String) view.getOrdersModel().getValueAt(selectedRow, 4);
+
+        if ("Completed".equalsIgnoreCase(currentStatus)) {
+            JOptionPane.showMessageDialog(view, "This order is already Completed and cannot be updated.");
+            return;
+        }
+
+        if ("Ready".equalsIgnoreCase(currentStatus) && !"Completed".equalsIgnoreCase(newStatus)) {
+            JOptionPane.showMessageDialog(view, "Order is already Ready. You can only mark it as Completed.");
+            return;
+        }
+
         staff.updateOrderStatus(orderId, newStatus);
         refreshOrdersTable();
     }

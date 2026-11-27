@@ -37,6 +37,7 @@ public class AdminView extends JFrame {
     private JButton pendingBtn;
     private JButton preparingBtn;
     private JButton readyBtn;
+    private JButton completedBtn;
 
     private DefaultTableModel menuModel;
     private JTable menuTable;
@@ -118,11 +119,13 @@ public class AdminView extends JFrame {
         pendingBtn = new JButton("Mark Pending");
         preparingBtn = new JButton("Mark Preparing");
         readyBtn = new JButton("Mark Ready");
+        completedBtn = new JButton("Mark Completed");
 
         statusPanel.add(refreshBtn);
         statusPanel.add(pendingBtn);
         statusPanel.add(preparingBtn);
         statusPanel.add(readyBtn);
+        statusPanel.add(completedBtn);
         panel.add(statusPanel, BorderLayout.SOUTH);
 
         return panel;
@@ -221,6 +224,10 @@ public class AdminView extends JFrame {
 
     public JButton getReadyButton() {
         return readyBtn;
+    }
+
+    public JButton getCompletedButton() {
+        return completedBtn;
     }
 
     public DefaultTableModel getMenuModel() {
